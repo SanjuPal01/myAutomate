@@ -1,0 +1,1 @@
+import{j as r,q as a}from"./p-6b826df5.js";var o=function(o){return r(o)&&a(o)};export{o as i};

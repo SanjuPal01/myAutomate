@@ -1,0 +1,1 @@
+import{i as r,q as a,a as i,C as n}from"./p-6b826df5.js";var s=function(s,t,e){if(!r(e))return!1;var f=typeof t;return!!("number"==f?a(e)&&i(t,e.length):"string"==f&&t in e)&&n(e[t],s)};export{s as i};
