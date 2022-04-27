@@ -1,0 +1,284 @@
+env:
+  HAB_BLDR_CHANNEL: "stable"
+  HAB_STUDIO_SECRET_HAB_FALLBACK_CHANNEL: "stable"
+
+expeditor:
+  defaults:
+    executor:
+      docker:
+        workdir: /go/src/github.com/chef/automate
+
+steps:
+  - label: build
+    command:
+      - scripts/verify_build.sh
+    timeout_in_minutes: 60
+    env:
+      BUILD_ALL: true
+      ALLOW_LOCAL_PACKAGES: true
+      HAB_STUDIO_SUP: false
+      HAB_NONINTERACTIVE: true
+    expeditor:
+      secrets:
+        HAB_STUDIO_SECRET_GITHUB_TOKEN:
+          account: github/chef-ci
+          field: token
+      executor:
+        linux:
+          privileged: true
+
+  - label: basic A1 -> A2 migration test (dev channel)
+    command:
+      - scripts/nightly_basic_a1.sh
+    env:
+      HAB_ORIGIN: chef
+    timeout_in_minutes: 30
+    soft_fail: true
+    expeditor:
+      secrets:
+        A1_LICENSE:
+          path: secret/a2/delivery_license
+          field: license
+      executor:
+        linux:
+          single-use: true
+          privileged: true
+
+  - label: A1 -> A2 migration test (dev channel)
+    command:
+      - scripts/nightly_migration.sh
+    env:
+      HAB_ORIGIN: chef
+    timeout_in_minutes: 30
+    soft_fail: true
+    expeditor:
+      secrets:
+        A1_LICENSE:
+          path: secret/a2/delivery_license
+          field: license
+      executor:
+        linux:
+          single-use: true
+          privileged: true
+
+  - wait
+
+  - label: "v2 to v3 upgrade (dev channel)"
+    command:
+      - integration/run_test integration/tests/v2_to_v3_upgrade.sh
+    timeout_in_minutes: 25
+    expeditor:
+      secrets:
+        A2_LICENSE:
+          path: secret/a2/license
+          field: license
+      executor:
+        linux:
+          privileged: true
+
+  - label: "[integration] chef server upgrade"
+    command:
+      - integration/run_test integration/tests/chef_server_upgrade.sh
+    timeout_in_minutes: 30 # longer timeout for chef-server
+    expeditor:
+      executor:
+        linux:
+          single-use: true
+          privileged: true
+
+  - label: "[integration] chef server backup"
+    command:
+      - integration/run_test integration/tests/chef_server_backup.sh
+    timeout_in_minutes: 40 # longer timeout for chef-server
+    expeditor:
+      executor:
+        linux:
+          single-use: true
+          privileged: true
+
+  - label: "[integration] backups-no-sha256"
+    command:
+      - integration/run_test integration/tests/backup-no-sha.sh
+    timeout_in_minutes: 20
+    expeditor:
+      executor:
+        linux:
+          privileged: true
+
+  - label: "[integration] deprecated backup w external es"
+    command: integration/run_test integration/tests/deprecated_backup_external_es.sh
+    timeout_in_minutes: 25
+    expeditor:
+      executor:
+        linux:
+          single-use: true
+          privileged: true
+
+  - label: "[integration] a1 legacy token"
+    command:
+      - integration/run_test integration/tests/a1_legacy_token.sh
+    timeout_in_minutes: 20
+    expeditor:
+      executor:
+        linux:
+          privileged: true
+
+  - label: "ha data services"
+    command:
+      - integration/run_test integration/tests/ha_data_services.sh
+    timeout_in_minutes: 35
+    expeditor:
+      executor:
+        linux:
+          single-use: true
+          privileged: true
+
+  - label: "ha data services migrate"
+    command:
+      - integration/run_test integration/tests/ha_data_services_migrate.sh
+    timeout_in_minutes: 35
+    expeditor:
+      executor:
+        linux:
+          single-use: true
+          privileged: true
+
+  - label: "backup w external es"
+    command:
+      - integration/run_test integration/tests/backup_external_es.sh
+    timeout_in_minutes: 25
+    expeditor:
+      executor:
+        linux:
+          single-use: true
+          privileged: true
+
+  - label: "backup w external es to gcs"
+    command:
+      - integration/run_test integration/tests/backup_external_es_gcs.sh
+    timeout_in_minutes: 35
+    expeditor:
+      accounts:
+        - aws/chef-cd
+      executor:
+        linux:
+          single-use: true
+          privileged: true
+      secrets:
+        A2_LICENSE:
+          path: secret/a2/license
+          field: license
+        GOOGLE_APPLICATION_JSON:
+          path: secret/a2/gcp
+          field: backup-creds
+
+  - label: "backup w external es to s3"
+    command:
+      - integration/run_test integration/tests/backup_external_es_s3.sh
+    timeout_in_minutes: 30
+    expeditor:
+      accounts:
+        - aws/chef-cd
+      executor:
+        linux:
+          single-use: true
+          privileged: true
+      secrets:
+        A2_LICENSE:
+          path: secret/a2/license
+          field: license
+        AWS_ACCESS_KEY_ID:
+          account: aws/chef-cd
+          field: access_key_id
+        AWS_SECRET_ACCESS_KEY:
+          account: aws/chef-cd
+          field: secret_access_key
+        AWS_SESSION_TOKEN:
+          account: aws/chef-cd
+          field: session_token
+
+  # TODO(ssd) 2019-12-13: This test is broken given the current design
+  # of config patch and backup/restore.  We are working on fixes for
+  # the various problems that make this test incorrect.
+  #
+  # - label: "[integration] backups repo permissions"
+  #   command:
+  #     - integration/run_test integration/tests/backup_repo_permissions.sh
+  #   timeout_in_minutes: 30 # it restores twice so we'll give it a while
+  #   expeditor:
+  #     executor:
+  #       linux:
+  #         single-use: true
+  #         privileged: true
+  - label: "product deployment stress mode"
+    command:
+      - integration/run_test integration/tests/product_deployment_stress.sh
+    timeout_in_minutes: 20
+    expeditor:
+      executor:
+        linux:
+          single-use: true
+          privileged: true
+
+  - label: "[integration] product mitm"
+    command:
+      - integration/run_test integration/tests/product_mitm.sh
+    timeout_in_minutes: 20
+    expeditor:
+      executor:
+        linux:
+          privileged: true
+
+  - label: "cypress (flaky included) :cypress:"
+    command:
+      - FLAKY=yes integration/run_test integration/tests/cypress_e2e.sh
+    timeout_in_minutes: 45
+    soft_fail: true
+    expeditor:
+      secrets: &cypress_secrets
+        A2_LICENSE:
+          path: secret/a2/license
+          field: license
+        CYPRESS_AUTOMATE_ACCEPTANCE_TARGET_HOST:
+          path: secret/a2/testing/target_host
+          field: data
+        CYPRESS_AUTOMATE_ACCEPTANCE_TARGET_USER:
+          path: secret/a2/testing/target_user
+          field: data
+        CYPRESS_AUTOMATE_ACCEPTANCE_TARGET_KEY:
+          path: secret/a2/testing/target_key
+          field: data
+      executor:
+        linux:
+          privileged: true
+
+  - label: ":semgrep: Semgrep"
+    command:
+      - export SEMGREP_BRANCH=$BUILDKITE_BRANCH
+      # This is actually a fictitious repo name for the nightly run to allow attaching
+      # a different semgrep policy to the run.
+      # The Chef-nightly policy (https://semgrep.dev/manage/policy/chef-nightly)
+      # excludes a few rules from the main policy to produce less noisy output,
+      # ignoring legacy issues that are of no consequence and do not need to be addressed.
+      - export SEMGREP_REPO_NAME=chef/automate-nightly
+      # Activates links to buildkite builds in slack notification
+      - export SEMGREP_JOB_URL=$BUILDKITE_BUILD_URL
+      # Activates links to git commits in slack notification
+      - export SEMGREP_REPO_URL=https://github.com/chef/automate
+      - python -m semgrep_agent --publish-token "\$SEMGREP_TOKEN" --publish-deployment \$SEMGREP_ID
+    timeout_in_minutes: 20
+    soft_fail: true
+    expeditor:
+      secrets: true
+    plugins:
+      # Temporary workaround per @tduffield; do not propagate this solution too much!
+      - chef/step-hook#v0.1.1:
+          pre-command:
+            - .expeditor/export_semgrep_token.sh
+      - docker#v3.7.0:
+          image: returntocorp/semgrep-agent:v1
+          propagate-environment: true
+          workdir: /go/src/github.com/chef/automate
+          environment:
+            - SEMGREP_TOKEN
+            - SEMGREP_ID
