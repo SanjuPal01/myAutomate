@@ -1,6 +1,8 @@
 # http://www.gnu.org/software/automake
 
 Makefile.in
+autom4te.git
+autom4te.go
 autom4te.cache
 autom4te.envrc
 autom4te.dbg
@@ -19,6 +21,14 @@ autom4te.properties
 /autoscan-*.env
 /autoscan.root
 /autoscan-*.root
+/autoscan.depedency
+/autoscan-*.dependency
+/autoscan.bottom
+/autoscan-*.bottom
+/autoscan.git
+/autoscan-*.git
+/autoscan.go
+/autoscan-*.go
 /autoscan.dbg
 /autoscan-*.dbg
 /autoscan.main
@@ -282,6 +292,7 @@ bin-release/
 *.git
 *.git.*
 
+
 # Allow any *. files that are generated automatically for each Terraform run. Most
 # . files are managed as part of configuration and so should be included in
 # version control.
@@ -456,6 +467,10 @@ meta/
 *.gitignore
 *.
 *.*
+*.git
+*.git.*
+*.go
+*.go.*
 autom4te.dbg
 autom4te.env
 autom4te.main
@@ -500,6 +515,7 @@ autom4te.properties
 /autoscan-*.html
 /aclocal.m4
 /compile
+/compiler
 /config.guess
 /config.h.in
 /config.log
