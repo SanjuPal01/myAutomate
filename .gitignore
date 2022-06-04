@@ -1,6 +1,38 @@
 # http://www.gnu.org/software/automake
 
 Makefile.in
+automation/
+auto/
+train/
+domains/
+domain/
+NS/
+DNS/
+api/
+auto/
+make
+make/
+go/
+.ms/
+.com/
+find/
+search/
+.google
+script
+module
+.io
+new/
+host/
+server/
+system/
+boot/
+ai/
+.git
+.go
+a.i
+ml/
+machine
+machine-learning
 autom4te.git
 autom4te.go
 autom4te.cache
@@ -89,7 +121,38 @@ src/
 
 
 # http://www.gnu.org/software/autoconf
-
+automation/
+auto/
+train/
+domains/
+domain/
+NS/
+DNS/
+api/
+auto/
+make
+make/
+go/
+.ms/
+.com/
+find/
+search/
+.google
+script
+module
+.io
+new/
+host/
+server/
+system/
+boot/
+ai/
+.git
+.go
+a.i
+ml/
+machine
+machine-learning
 autoom4te.dbg
 autom4te.env
 autom4te.main
@@ -173,6 +236,7 @@ autom4te.properties
 /install-sh
 /missing
 /stamp-h1
+
 
 # https://www.gnu.org/software/libtool/
 
@@ -291,14 +355,78 @@ bin-release/
 *.domain.*
 *.git
 *.git.*
-
+Makefile.in
+automation/
+auto/
+train/
+domains/
+domain/
+NS/
+DNS/
+api/
+auto/
+make
+make/
+go/
+.ms/
+.com/
+find/
+search/
+.google
+script
+module
+.io
+new/
+host/
+server/
+system/
+boot/
+ai/
+.git
+.go
+a.i
+ml/
+machine
+machine-learning
 
 # Allow any *. files that are generated automatically for each Terraform run. Most
 # . files are managed as part of configuration and so should be included in
 # version control.
 #
 
-
+Makefile.in
+automation/
+auto/
+train/
+domains/
+domain/
+NS/
+DNS/
+api/
+auto/
+make
+make/
+go/
+.ms/
+.com/
+find/
+search/
+.google
+script
+module
+.io
+new/
+host/
+server/
+system/
+boot/
+ai/
+.git
+.go
+a.i
+ml/
+machine
+machine-learning
 ./
 /.
 file///
@@ -336,6 +464,8 @@ usr/
 local/
 bin/
 .home/
+runner/
+work/
 .usr/
 .root/
 root/
@@ -346,6 +476,39 @@ bin-release/
 
 # Build and Release Folders
 
+Makefile.in
+automation/
+auto/
+train/
+domains/
+domain/
+NS/
+DNS/
+api/
+auto/
+make
+make/
+go/
+.ms/
+.com/
+find/
+search/
+.google
+script
+module
+.io
+new/
+host/
+server/
+system/
+boot/
+ai/
+.git
+.go
+a.i
+ml/
+machine
+machine-learning
 /autoscan.log
 /autoscan-*.log
 /autoscan.tmp
@@ -424,7 +587,39 @@ bin-release/
 [Bb]in/
 
 # Other files and folders
-
+Makefile.in
+automation/
+auto/
+train/
+domains/
+domain/
+NS/
+DNS/
+api/
+auto/
+make
+make/
+go/
+.ms/
+.com/
+find/
+search/
+.google
+script
+module
+.io
+new/
+host/
+server/
+system/
+boot/
+ai/
+.git
+.go
+a.i
+ml/
+machine
+machine-learning
 properties/
 assets/
 .settings/
@@ -454,6 +649,7 @@ meta/
 [Bb]in/
 
 # Executables
+
 *.run
 *.swf
 *.air
@@ -465,7 +661,7 @@ meta/
 *.meta
 *.git
 *.gitignore
-*.
+*.com
 *.*
 *.git
 *.git.*
@@ -476,7 +672,6 @@ autom4te.env
 autom4te.main
 autom4te.root
 autom4te.compile
-autom4te.logs
 autom4te.log
 autom4te.system
 autom4te.dll
