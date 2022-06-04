@@ -1,8 +1,8 @@
 # http://www.gnu.org/software/automake
 Makefile.in
 automation/
-cmake
-make
+cmake/
+make/
 automatic/
 garbage/
 driven/
@@ -133,7 +133,10 @@ src/
 
 
 # http://www.gnu.org/software/autoconf
+Makefile.in
 automation/
+cmake/
+make/
 cmake
 make
 automatic/
@@ -298,13 +301,11 @@ autom4te.properties
 # https://www.gnu.org/software/libtool/
 
 /ltmain.sh
-./.sh
+
 
 # http://www.gnu.org/software/texinfo
 
 /texinfo.tex
-/txt
-/text
 # http://www.gnu.org/software/m4/
 
 m4/libtool.m4
@@ -313,7 +314,10 @@ m4/ltsugar.m4
 m4/ltversion.m4
 m4/lt~obsolete.m4
 
+Makefile.in
 automation/
+cmake/
+make/
 cmake
 make
 automatic/
@@ -459,6 +463,7 @@ bin-release/
 *.domain.*
 *.git
 *.git.*
+
 Makefile.in
 automation/
 auto/
@@ -624,7 +629,10 @@ bin-release/
 
 
 # Build and Release Folders
-
+Makefile.in
+automation/
+cmake/
+make/
 automation/
 cmake
 make
@@ -781,7 +789,10 @@ bin-release/
 [Bb]in/
 
 # Other files and folders
+Makefile.in
 automation/
+cmake/
+make/
 cmake
 make
 automatic/
