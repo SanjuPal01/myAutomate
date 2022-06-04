@@ -1,6 +1,29 @@
 # http://www.gnu.org/software/automake
 
 Makefile.in
+autom4te.cache
+/autoscan.log
+/autoscan-*.log
+/autoscan.tmp
+/autoscan-*.tmp
+/autoscan.dll
+/autoscan-*.dll
+/autoscan.js
+/autoscan-*.js
+/autoscan.local
+/autoscan-*.local
+/autoscan.properties
+/autoscan-*.properties
+/autoscan.html
+/autoscan-*.html
+/aclocal.m4
+/compile
+/config.guess
+/config.h.in
+/config.log
+/SRC
+/config.js
+
 /ar-lib
 /mdate-sh
 /py-compile
@@ -8,17 +31,42 @@ Makefile.in
 /ylwrap
 ./
 tmp/
+./
+/home
+home/
+./tmp
+cache/
+/cache
+use/
+local/
+src/
+./src
+
 
 # http://www.gnu.org/software/autoconf
 
 autom4te.cache
 /autoscan.log
 /autoscan-*.log
+/autoscan.tmp
+/autoscan-*.tmp
+/autoscan.dll
+/autoscan-*.dll
+/autoscan.js
+/autoscan-*.js
+/autoscan.local
+/autoscan-*.local
+/autoscan.properties
+/autoscan-*.properties
+/autoscan.html
+/autoscan-*.html
 /aclocal.m4
 /compile
 /config.guess
 /config.h.in
 /config.log
+/SRC
+/config.js
 /config.status
 /config.sub
 /configure
