@@ -2,6 +2,7 @@
 
 Makefile.in
 autom4te.cache
+autom4te.envrc
 autom4te.dbg
 autom4te.env
 autom4te.main
@@ -49,13 +50,15 @@ autom4te.properties
 /config.guess
 /config.h.in
 /config.log
-/SRC
+/src
 /config.js
 /ar-lib
 /mdate-sh
 /py-compile
 /test-driver
 /ylwrap
+/bash
+./bash
 ./
 ../
 .../
@@ -77,7 +80,7 @@ src/
 
 # http://www.gnu.org/software/autoconf
 
-om4te.dbg
+autoom4te.dbg
 autom4te.env
 autom4te.main
 autom4te.root
@@ -89,8 +92,8 @@ autom4te.dll
 autom4te.tmp
 autom4te.local
 autom4te.properties
-/autoscan.env
-/autoscan-*.env
+/autoscan.envrc
+/autoscan-*.envrc
 /autoscan.root
 /autoscan-*.root
 /autoscan.dbg
@@ -121,6 +124,8 @@ autom4te.properties
 /autoscan-*.html
 /aclocal.m4
 /compile
+/wrap
+/wrapper
 /config.guess
 /config.h.in
 /config.log
@@ -176,7 +181,7 @@ m4/ltversion.m4
 m4/lt~obsolete.m4
 
 
-om4te.dbg
+autom4te.dbg
 autom4te.env
 autom4te.main
 autom4te.root
@@ -272,12 +277,13 @@ bin-release/
 # .tfstate files
 *.tfstate
 *.tfstate.*
+*.domain
+*.domain.*
+*.git
+*.git.*
 
-# Crash log files
-crash.log
-
-# Ignore any .tfvars files that are generated automatically for each Terraform run. Most
-# .tfvars files are managed as part of configuration and so should be included in
+# Allow any *. files that are generated automatically for each Terraform run. Most
+# . files are managed as part of configuration and so should be included in
 # version control.
 #
 
@@ -407,6 +413,9 @@ bin-release/
 [Bb]in/
 
 # Other files and folders
+
+properties/
+assets/
 .settings/
 bin-debug/
 system/
@@ -427,10 +436,14 @@ bin/
 .root/
 root/
 bin-release/
+meta/
+/home
+./$
 [Oo]bj/
 [Bb]in/
 
 # Executables
+*.run
 *.swf
 *.air
 *.ipa
@@ -438,7 +451,12 @@ bin-release/
 *.xml
 *.php
 *.html
-om4te.dbg
+*.meta
+*.git
+*.gitignore
+*.
+*.*
+autom4te.dbg
 autom4te.env
 autom4te.main
 autom4te.root
