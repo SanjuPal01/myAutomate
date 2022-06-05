@@ -1,4 +1,0 @@
-documentation:
-  - 'components/docs-chef-io/**/*'
-  - 'components/**/*.proto'
-
